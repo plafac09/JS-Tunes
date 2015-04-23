@@ -7,7 +7,10 @@ package main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -17,6 +20,16 @@ import javafx.fxml.Initializable;
 public class FrameController implements Initializable
 {
 
+    public FrameController()
+    {
+    }
+
+    @FXML
+    public void onCreatePlaylist(ActionEvent evt)
+    {   
+        System.out.println("Creating playlist...");
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -24,6 +37,6 @@ public class FrameController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
-    
+    }
+
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FrameController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
@@ -100,7 +100,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" text="Create Playlist" />
+                  <Button fx:id="btCreate" mnemonicParsing="false" onAction="#onCreatePlaylist" prefHeight="34.0" prefWidth="200.0" text="Create Playlist" />
                   <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="297.0" text="Remove Playlist" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="214.0" text="..." GridPane.columnIndex="2" />
                </children>
