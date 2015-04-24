@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -22,7 +23,7 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <bottom>
-                  <GridPane BorderPane.alignment="CENTER">
+                  <GridPane style="-fx-border-color: GREY;" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -38,6 +39,9 @@
                         <Label prefHeight="127.0" prefWidth="292.0" text="Release Year" GridPane.rowIndex="2" />
                         <Label prefHeight="172.0" prefWidth="387.0" text="Album" GridPane.columnIndex="1" />
                      </children>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
                   </GridPane>
                </bottom>
                <top>
@@ -50,12 +54,13 @@
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label prefHeight="40.0" prefWidth="134.0" text="00:00" />
                         <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="176.0" text="03:00" GridPane.columnIndex="2" />
                         <Label alignment="CENTER" prefHeight="68.0" prefWidth="164.0" text="Amazing Track" GridPane.columnIndex="1" />
-                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,11 +75,15 @@
                               <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="54.0" text="&gt;|" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
+                        <Slider value="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="3.0" right="3.0" />
+                     </padding>
                   </GridPane>
                </top>
                <center>
-                  <Label alignment="CENTER" prefHeight="153.0" prefWidth="178.0" text="Image" BorderPane.alignment="CENTER" />
+                  <Label alignment="CENTER" prefHeight="125.0" prefWidth="128.0" style="-fx-border-color: GREY;" text="Image" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </center>
