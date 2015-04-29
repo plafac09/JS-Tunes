@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javax.swing.JOptionPane;
+import javafx.scene.control.Slider;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -19,17 +21,23 @@ import javax.swing.JOptionPane;
  */
 public class FrameController implements Initializable
 {
-
+    @FXML
+    private Slider slider;
+    
     public FrameController()
     {
     }
 
     @FXML
     public void onCreatePlaylist(ActionEvent evt)
-    {   
+    {
         System.out.println("Creating playlist...");
     }
 
+    @FXML
+    public void onChangeVolume(MouseEvent de)
+    {
+    }
     /**
      * Initializes the controller class.
      */

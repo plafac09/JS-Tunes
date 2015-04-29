@@ -75,7 +75,7 @@
                               <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="54.0" text="&gt;|" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
-                        <Slider value="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Slider fx:id="slider" onDragDetected="#onChangeVolume" value="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="3.0" right="3.0" />
