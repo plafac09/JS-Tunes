@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.input.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -70,7 +71,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="44.0" text="&gt;" GridPane.columnIndex="1" />
+                              <Button fx:id="btPlay" mnemonicParsing="false" onAction="#onPlay" prefHeight="43.0" prefWidth="44.0" text="&gt;" GridPane.columnIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="68.0" text="|&lt;" />
                               <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="54.0" text="&gt;|" GridPane.columnIndex="2" />
                            </children>
@@ -116,7 +117,14 @@
             </GridPane>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="File" />
+                <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem fx:id="menuOpenTrack" mnemonicParsing="false" text="Open Track">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                     </items></Menu>
               </menus>
             </MenuBar>
          </children>
