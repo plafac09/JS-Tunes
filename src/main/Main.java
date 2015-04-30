@@ -16,6 +16,15 @@ import javafx.stage.Stage;
  *
  * @author Jule
  */
+
+//Erklärung Libraries:
+    /*
+    tritonus_share.. -> damit kann man alle Informationen einer Sounddatei einholen
+    mp3spi.. -> damit kann man mp3-Files abspielen
+    
+    Webseite für Tutorial über Tritonus_schare..: http://www.javazoom.net/mp3spi/documents.html
+    */
+
 public class Main extends Application
 {
 
