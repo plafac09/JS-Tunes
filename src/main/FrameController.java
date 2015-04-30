@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -35,8 +34,15 @@ public class FrameController implements Initializable
     }
 
     @FXML
-    public void onChangeVolume(MouseEvent de)
+    public void onChangeVolume(MouseEvent evt)
     {
+        
+    }
+    
+    @FXML
+    public void onPlay(ActionEvent evt)
+    {
+        System.out.println("Playing...");
     }
     /**
      * Initializes the controller class.
