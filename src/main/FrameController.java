@@ -44,6 +44,13 @@ public class FrameController implements Initializable
     {
         System.out.println("Playing...");
     }
+    
+    @FXML
+    public void onOpenTrack(ActionEvent evt)
+    {
+        System.out.println("Opening Track...");
+    }
+    
     /**
      * Initializes the controller class.
      */
