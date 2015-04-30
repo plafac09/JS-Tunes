@@ -5,6 +5,8 @@
  */
 package main;
 
+import bl.TrackController;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -43,6 +45,9 @@ public class FrameController implements Initializable
     public void onPlay(ActionEvent evt)
     {
         System.out.println("Playing...");
+        TrackController tc = new TrackController();
+        String filename = System.getProperty("user.dir")+File.separator+"scr"+File.separator+"res"+File.separator+"music"+File.separator+"Pitbul.mp3";
+        tc.playTrack(filename);
     }
     
     @FXML
