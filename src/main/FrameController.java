@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 
@@ -22,9 +23,12 @@ import javafx.scene.input.MouseEvent;
  */
 public class FrameController implements Initializable
 {
+
     @FXML
     private Slider slider;
-    
+    @FXML
+    private Button btPlayStop;
+
     public FrameController()
     {
     }
@@ -38,24 +42,34 @@ public class FrameController implements Initializable
     @FXML
     public void onChangeVolume(MouseEvent evt)
     {
-        
+
     }
-    
+
     @FXML
-    public void onPlay(ActionEvent evt)
+    public void onPlayStop(ActionEvent evt)
     {
-        System.out.println("Playing...");
-        TrackController tc = new TrackController();
-        String filename = System.getProperty("user.dir")+File.separator+"scr"+File.separator+"res"+File.separator+"music"+File.separator+"Pitbul.mp3";
-        tc.playTrack(filename);
+        switch (btPlayStop.getText())
+        {
+            case ">":
+                btPlayStop.setText("||");
+                TrackController tc = new TrackController();
+                String filename = System.getProperty("user.dir") + File.separator + "scr" + File.separator + "res" + File.separator + "music" + File.separator + "Pitbul.mp3";
+                tc.playTrack(filename);
+                System.out.println("Playing...");
+                break;
+            case "||":
+                btPlayStop.setText(">");
+                System.out.println("Stopping...");
+                break;
+        }
     }
-    
+
     @FXML
     public void onOpenTrack(ActionEvent evt)
     {
         System.out.println("Opening Track...");
     }
-    
+
     /**
      * Initializes the controller class.
      */
