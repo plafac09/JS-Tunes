@@ -11,17 +11,35 @@ package bl;
  */
 import javax.sound.sampled.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TrackController 
 {
-    //method for playing audio, calls method rawplay
+    private SourceDataLine line = null;
+    private AudioInputStream din = null;
+    /*
+    To get MP3 information (such as channels, sampling rate, and 
+    other metadata), you need to call the AudioSystem.getAudioFileFormat(file) 
+    static method from AudioSystem. It will return an instance of MpegAudioFileFormat, 
+    from which you can get audio properties. Note that the AudioSystem class acts 
+    as the entry point to the sampled-audio system resources.
+    
+    
+    To play MP3, you need first to call AudioSystem.getAudioInputStream(file) 
+    to get an AudioInputStream from an MP3 file, select the target format 
+    (i.e., PCM) according to input MP3 channels and sampling rate, and 
+    finally get an AudioInputStream with the target format. If JavaSound 
+    doesn't find a matching SPI implementation supporting the 
+    MP3-to-PCM conversion, then it will throw an exception.
+    */
+   
     public void playTrack(String filename) 
     {
         try 
         {
             File file = new File(filename);
             AudioInputStream in = AudioSystem.getAudioInputStream(file);
-            AudioInputStream din = null;
             AudioFormat baseFormat = in.getFormat();
             AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
                     baseFormat.getSampleRate(),
@@ -32,7 +50,7 @@ public class TrackController
                     false);
             din = AudioSystem.getAudioInputStream(decodedFormat, in);
             // Play now. 
-            rawplay(decodedFormat, din);
+            rawplay(decodedFormat);
             in.close();
         } 
         catch (Exception e) 
@@ -42,27 +60,46 @@ public class TrackController
         }
     }
     
-    //method for decoding audio file, calls method getLine
-    private void rawplay(AudioFormat targetFormat, AudioInputStream din) throws IOException, LineUnavailableException 
+    /*Second, you have to send the decoded PCM data to a SourceDataLine. 
+    This means you have to load PCM data from the decoded AudioInputStream 
+    into the SourceDataLine buffer until the end of file is reached. 
+    JavaSound will send this data to the sound card. Once the 
+    file is exhausted, the line resources must be closed.*/
+    
+    private void rawplay(AudioFormat targetFormat) throws IOException, LineUnavailableException 
     {
         byte[] data = new byte[4096];
-        SourceDataLine line = getLine(targetFormat);
+        line = getLine(targetFormat);
         if (line != null) 
         {
             // Start
             line.start();
             int nBytesRead = 0, nBytesWritten = 0;
-            while (nBytesRead != -1) {
+            while (nBytesRead != -1) 
+            {
                 nBytesRead = din.read(data, 0, data.length);
                 if (nBytesRead != -1) {
                     nBytesWritten = line.write(data, 0, nBytesRead);
                 }
             }
-            // Stop
-            line.drain();
-            line.stop();
-            line.close();
-            din.close();
+        }
+    }
+    
+    public void stopTrack() 
+    {
+        try 
+        {
+            if(line != null)
+            {
+                line.drain();
+                line.stop();
+                line.close();
+                din.close();
+            }
+        } 
+        catch (IOException ex) 
+        {
+            System.out.println("Exception in TrackController : stopTrack : "+ex.toString());
         }
     }
 
