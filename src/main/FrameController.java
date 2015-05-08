@@ -66,17 +66,23 @@ public class FrameController implements Initializable
     @FXML
     public void onPlayStop(ActionEvent evt)
     {
+        TrackController tc = new TrackController();
+
         switch (btPlayStop.getText())
         {
             case "Play":
                 btPlayStop.setText("Stop");
-                TrackController tc = new TrackController();
+            case ">":
+                btPlayStop.setText("||");
                 String filename = System.getProperty("user.dir") + File.separator + "scr" + File.separator + "res" + File.separator + "music" + File.separator + "Pitbul.mp3";
                 tc.playTrack(filename);
                 System.out.println("Playing...");
                 break;
             case "Stop":
                 btPlayStop.setText("Play");
+            case "||":
+                btPlayStop.setText(">");
+                tc.stopTrack();
                 System.out.println("Stopping...");
                 break;
         }
