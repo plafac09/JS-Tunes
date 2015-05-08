@@ -25,11 +25,11 @@ public class PlaylistTrackModel extends AbstractListModel
     public PlaylistTrackModel(ListView view)
     {
         this.view = view;
+        view.setItems(list);
     }
 
-    
     public void addTrack(Track t)
-    {   
+    {
         list.add(t);
         view.setItems(list);
     }
@@ -37,11 +37,13 @@ public class PlaylistTrackModel extends AbstractListModel
     public void removeTrackByObject(Track t)
     {
         list.remove(t);
+        view.setItems(list);
     }
 
     public void removeTrackByIndex(int index)
     {
         list.remove(index);
+        view.setItems(list);
     }
 
     @Override
