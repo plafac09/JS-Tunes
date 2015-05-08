@@ -28,7 +28,11 @@ public class FrameController implements Initializable
     private Slider slider;
     @FXML
     private Button btPlayStop;
+    private TrackController tcf = null;
+    private boolean thread = true;
+    private String filename = System.getProperty("user.dir") + File.separator + "res" + File.separator + "music" + File.separator + "Lunar.mp3";
 
+    
     public FrameController()
     {
     }
@@ -48,20 +52,28 @@ public class FrameController implements Initializable
     @FXML
     public void onPlayStop(ActionEvent evt)
     {
-        TrackController tc = new TrackController();
-        
         switch (btPlayStop.getText())
         {
             case ">":
-                btPlayStop.setText("||");             
-                String filename = System.getProperty("user.dir") + File.separator + "scr" + File.separator + "res" + File.separator + "music" + File.separator + "Pitbul.mp3";
-                tc.playTrack(filename);
-                System.out.println("Playing...");
+                if(thread)
+                {                   
+                    if(tcf != null && tcf.isAlive())
+                    {
+                        break;
+                    }
+                    btPlayStop.setText("||");          
+                    tcf = new TrackController();
+                    tcf.setAudioFilePath(filename);
+                    tcf.start();
+                    thread = false;
+                }
                 break;
             case "||":
                 btPlayStop.setText(">");
-                tc.stopTrack();
-                System.out.println("Stopping...");
+                
+                tcf.setInter(true);
+                
+                 thread = true;
                 break;
         }
     }

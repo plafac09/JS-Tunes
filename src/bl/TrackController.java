@@ -11,13 +11,23 @@ package bl;
  */
 import javax.sound.sampled.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class TrackController 
+
+public class TrackController extends Thread
 {
     private SourceDataLine line = null;
     private AudioInputStream din = null;
+    private boolean inter = false;
+    private String filename = "";
+
+    @Override
+    public void run() 
+    {
+        playTrack();
+    }
+    
+    
+    
     /*
     To get MP3 information (such as channels, sampling rate, and 
     other metadata), you need to call the AudioSystem.getAudioFileFormat(file) 
@@ -34,7 +44,7 @@ public class TrackController
     MP3-to-PCM conversion, then it will throw an exception.
     */
    
-    public void playTrack(String filename) 
+    public void playTrack() 
     {
         try 
         {
@@ -60,6 +70,16 @@ public class TrackController
         }
     }
     
+    public void setInter(boolean inter) 
+    {
+        this.inter = inter;
+    }
+    
+    public void setAudioFilePath(String filename) 
+    {
+        this.filename = filename;
+    }
+    
     /*Second, you have to send the decoded PCM data to a SourceDataLine. 
     This means you have to load PCM data from the decoded AudioInputStream 
     into the SourceDataLine buffer until the end of file is reached. 
@@ -77,32 +97,24 @@ public class TrackController
             int nBytesRead = 0, nBytesWritten = 0;
             while (nBytesRead != -1) 
             {
+                if(inter)
+                {
+                    break;
+                }
                 nBytesRead = din.read(data, 0, data.length);
-                if (nBytesRead != -1) {
+                if (nBytesRead != -1) 
+                {
                     nBytesWritten = line.write(data, 0, nBytesRead);
                 }
+
             }
+            line.drain();
+            line.stop();
+            line.close();
+            din.close();
         }
     }
     
-    public void stopTrack() 
-    {
-        try 
-        {
-            if(line != null)
-            {
-                line.drain();
-                line.stop();
-                line.close();
-                din.close();
-            }
-        } 
-        catch (IOException ex) 
-        {
-            System.out.println("Exception in TrackController : stopTrack : "+ex.toString());
-        }
-    }
-
     //method for getting DataLine Info
     private SourceDataLine getLine(AudioFormat audioFormat) throws LineUnavailableException 
     {
