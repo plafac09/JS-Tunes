@@ -41,20 +41,10 @@ public class FrameController implements Initializable
     {
     }
 
-    //This is temporarily used to add Testdata
     @FXML
     public void onCreatePlaylist(ActionEvent evt)
     {
         System.out.println("Creating playlist...");
-        try
-        {
-            model.addTrack(new Track("Aquamaria", "Colour Haze",
-                    "Tempel", "2009", 0, "Psychedelic Rock", 523));
-        } catch (ParseException ex)
-        {
-            System.out.println("Error in Frame Controller: onCreatePlayList: "
-                    + ex.getMessage());
-        }
     }
 
     @FXML
