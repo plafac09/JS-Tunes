@@ -7,6 +7,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import custom.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FrameController">
    <center>
@@ -17,7 +18,7 @@
                   <ComboBox prefHeight="25.0" prefWidth="208.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </left>
@@ -71,7 +72,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btPlayStop" mnemonicParsing="false" onAction="#onPlayStop" prefHeight="43.0" prefWidth="44.0" text="&gt;" GridPane.columnIndex="1" />
+                              <Button fx:id="btPlayStop" mnemonicParsing="false" onAction="#onPlayStop" prefHeight="43.0" prefWidth="44.0" text="Play" GridPane.columnIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="68.0" text="|&lt;" />
                               <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="54.0" text="&gt;|" GridPane.columnIndex="2" />
                            </children>

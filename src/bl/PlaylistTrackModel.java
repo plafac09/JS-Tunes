@@ -5,6 +5,11 @@
  */
 package bl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 import javax.swing.AbstractListModel;
 
 /**
@@ -14,16 +19,41 @@ import javax.swing.AbstractListModel;
 public class PlaylistTrackModel extends AbstractListModel
 {
 
-    @Override
-    public int getSize() 
+    private ObservableList<Track> list = FXCollections.observableArrayList();
+    private ListView view;
+
+    public PlaylistTrackModel(ListView view)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.view = view;
+    }
+
+    
+    public void addTrack(Track t)
+    {   
+        list.add(t);
+        view.setItems(list);
+    }
+
+    public void removeTrackByObject(Track t)
+    {
+        list.remove(t);
+    }
+
+    public void removeTrackByIndex(int index)
+    {
+        list.remove(index);
     }
 
     @Override
-    public Object getElementAt(int index) 
+    public int getSize()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return list.size();
     }
-    
+
+    @Override
+    public Object getElementAt(int index)
+    {
+        return list.get(index);
+    }
+
 }
