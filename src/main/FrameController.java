@@ -5,15 +5,22 @@
  */
 package main;
 
+import bl.PlaylistTrackModel;
 import bl.TrackController;
 import java.io.File;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -24,6 +31,9 @@ import javafx.scene.input.MouseEvent;
 public class FrameController implements Initializable
 {
 
+    private PlaylistTrackModel model;
+    private ObservableList<String> options = FXCollections.observableArrayList();
+
     @FXML
     private Slider slider;
     @FXML
@@ -31,6 +41,10 @@ public class FrameController implements Initializable
     private TrackController tcf = null;
     private boolean thread = true;
     private String filename = System.getProperty("user.dir") + File.separator + "res" + File.separator + "music" + File.separator + "Lunar.mp3";
+    @FXML
+    private ListView list;
+    @FXML
+    private ComboBox boxPlaylists;
 
     
     public FrameController()
@@ -41,6 +55,20 @@ public class FrameController implements Initializable
     public void onCreatePlaylist(ActionEvent evt)
     {
         System.out.println("Creating playlist...");
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Input");
+        dialog.setHeaderText("Create a new Album");
+        dialog.setContentText("Enter a name: ");
+        
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent())
+        {
+            options.add(result.get());
+            boxPlaylists.setItems(options);
+            
+        }
     }
 
     @FXML
@@ -67,6 +95,12 @@ public class FrameController implements Initializable
                     tcf.start();
                     thread = false;
                 }
+            case "Play":
+                btPlayStop.setText("Pause");
+                TrackController tc = new TrackController();
+                String filename = System.getProperty("user.dir") + File.separator + "scr" + File.separator + "res" + File.separator + "music" + File.separator + "Pitbul.mp3";
+                tc.playTrack(filename);
+                System.out.println("Playing...");
                 break;
             case "||":
                 btPlayStop.setText(">");
@@ -74,6 +108,9 @@ public class FrameController implements Initializable
                 tcf.setInter(true);
                 
                  thread = true;
+            case "Pause":
+                btPlayStop.setText("Play");
+                System.out.println("Stopping...");
                 break;
         }
     }
@@ -90,7 +127,7 @@ public class FrameController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        model = new PlaylistTrackModel(list);
     }
 
 }
