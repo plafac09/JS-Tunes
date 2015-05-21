@@ -38,15 +38,17 @@ public class FrameController implements Initializable
     private Slider slider;
     @FXML
     private Button btPlayStop;
+    @FXML
     private TrackController tcf = null;
+    @FXML
     private boolean thread = true;
+    @FXML
     private String filename = System.getProperty("user.dir") + File.separator + "res" + File.separator + "music" + File.separator + "Lunar.mp3";
     @FXML
     private ListView list;
     @FXML
     private ComboBox boxPlaylists;
 
-    
     public FrameController()
     {
     }
@@ -59,7 +61,6 @@ public class FrameController implements Initializable
         dialog.setTitle("Input");
         dialog.setHeaderText("Create a new Album");
         dialog.setContentText("Enter a name: ");
-        
 
         Optional<String> result = dialog.showAndWait();
 
@@ -67,7 +68,7 @@ public class FrameController implements Initializable
         {
             options.add(result.get());
             boxPlaylists.setItems(options);
-            
+
         }
     }
 
@@ -82,36 +83,26 @@ public class FrameController implements Initializable
     {
         switch (btPlayStop.getText())
         {
-            case ">":
-                if(thread)
-                {                   
-                    if(tcf != null && tcf.isAlive())
+            case "Play":
+                btPlayStop.setText("Pause");
+                if (thread)
+                {
+                    if (tcf != null && tcf.isAlive())
                     {
                         break;
                     }
-                    btPlayStop.setText("||");          
                     tcf = new TrackController();
                     tcf.setAudioFilePath(filename);
                     tcf.start();
                     thread = false;
                 }
-            case "Play":
-                btPlayStop.setText("Pause");
-                TrackController tc = new TrackController();
-                String filename = System.getProperty("user.dir") + File.separator + "scr" + File.separator + "res" + File.separator + "music" + File.separator + "Pitbul.mp3";
-                tc.playTrack(filename);
-                System.out.println("Playing...");
                 break;
-            case "||":
-                btPlayStop.setText(">");
-                
-                tcf.setInter(true);
-                
-                 thread = true;
             case "Pause":
                 btPlayStop.setText("Play");
-                System.out.println("Stopping...");
+                tcf.setInter(true);
+                thread = true;
                 break;
+
         }
     }
 
