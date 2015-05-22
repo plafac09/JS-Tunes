@@ -11,6 +11,17 @@ package bl;
  */
 import javax.sound.sampled.*;
 import java.io.*;
+import java.util.Map;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.mp3.MP3File;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
+import org.jaudiotagger.tag.id3.ID3v1Tag;
+import org.jaudiotagger.tag.id3.ID3v24Tag;
+import org.tritonus.share.sampled.TAudioFormat;
+import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 
 public class TrackController extends Thread
@@ -19,21 +30,49 @@ public class TrackController extends Thread
     private AudioInputStream din = null;
     private boolean inter = false;
     private String filename = "";
+    private AudioInputStream in = null;
+    private AudioFormat baseFormat = null;
+    private File file = null;
 
+     public void setInter(boolean inter) 
+    {
+        this.inter = inter;
+    }
+    
+    public void setAudioFilePath(String filename) 
+    {
+        this.filename = filename;
+    }
+    
     @Override
     public void run() 
     {
+      //  System.out.println("run");
         playTrack();
+      //  System.out.println("stop");
     }
     
-    
-    
+    public void displayTrackInformation() throws Exception
+    {
+        System.out.println("in display track info");
+        MP3File f      = (MP3File) AudioFileIO.read(file);
+        Tag tag        =  f.getTag();
+        ID3v1Tag         v1Tag  = (ID3v1Tag)tag;
+        AbstractID3v2Tag v2tag  = f.getID3v2Tag();
+        AbstractID3v2Tag        v24tag = (AbstractID3v2Tag)f.getID3v2TagAsv24();
+        System.out.println("tags and things init");
+        String artist = v1Tag.getFirstArtist();
+        String album = v1Tag.getFirstAlbum();
+        System.out.println("Artist: " +artist);
+        System.out.println("Album: "+album);
+
+    }   
     /*
     To get MP3 information (such as channels, sampling rate, and 
     other metadata), you need to call the AudioSystem.getAudioFileFormat(file) 
     static method from AudioSystem. It will return an instance of MpegAudioFileFormat, 
     from which you can get audio properties. Note that the AudioSystem class acts 
-    as the entry point to the sampled-audio system resources.
+    as the entry point to the sampled-audio system resources.<y
     
     
     To play MP3, you need first to call AudioSystem.getAudioInputStream(file) 
@@ -48,7 +87,7 @@ public class TrackController extends Thread
     {
         try 
         {
-            File file = new File(filename);
+            file = new File(filename);
             AudioInputStream in = AudioSystem.getAudioInputStream(file);
             AudioFormat baseFormat = in.getFormat();
             AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
@@ -60,6 +99,7 @@ public class TrackController extends Thread
                     false);
             din = AudioSystem.getAudioInputStream(decodedFormat, in);
             // Play now. 
+        //    System.out.println("playtrack");
             rawplay(decodedFormat);
             in.close();
         } 
@@ -70,15 +110,7 @@ public class TrackController extends Thread
         }
     }
     
-    public void setInter(boolean inter) 
-    {
-        this.inter = inter;
-    }
-    
-    public void setAudioFilePath(String filename) 
-    {
-        this.filename = filename;
-    }
+   
     
     /*Second, you have to send the decoded PCM data to a SourceDataLine. 
     This means you have to load PCM data from the decoded AudioInputStream 
@@ -106,7 +138,7 @@ public class TrackController extends Thread
                 {
                     nBytesWritten = line.write(data, 0, nBytesRead);
                 }
-
+       //         System.out.println("hi");
             }
             line.drain();
             line.stop();
