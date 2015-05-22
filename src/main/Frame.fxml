@@ -35,10 +35,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="58.0" prefWidth="229.0" text="Artist" />
-                        <Label prefHeight="140.0" prefWidth="305.0" text="Genre" GridPane.rowIndex="1" />
-                        <Label prefHeight="127.0" prefWidth="292.0" text="Release Year" GridPane.rowIndex="2" />
-                        <Label prefHeight="172.0" prefWidth="387.0" text="Album" GridPane.columnIndex="1" />
+                        <Label fx:id="lbArtist" prefHeight="58.0" prefWidth="229.0" text="Artist" />
+                        <Label fx:id="lbGenre" prefHeight="140.0" prefWidth="305.0" text="Genre" GridPane.rowIndex="1" />
+                        <Label fx:id="lbReleaseYear" prefHeight="127.0" prefWidth="292.0" text="Release Year" GridPane.rowIndex="2" />
+                        <Label fx:id="lbAlbum" prefHeight="172.0" prefWidth="387.0" text="Album" GridPane.columnIndex="1" />
                      </children>
                      <padding>
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -60,7 +60,7 @@
                      <children>
                         <Label prefHeight="40.0" prefWidth="134.0" text="00:00" />
                         <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="176.0" text="03:00" GridPane.columnIndex="2" />
-                        <Label alignment="CENTER" prefHeight="68.0" prefWidth="164.0" text="Amazing Track" GridPane.columnIndex="1" />
+                        <Label fx:id="lbCurrentTrack" alignment="CENTER" prefHeight="68.0" prefWidth="164.0" text="Amazing Track" GridPane.columnIndex="1" />
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
