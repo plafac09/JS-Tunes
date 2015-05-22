@@ -153,7 +153,6 @@ public class FrameController implements Initializable
             model.addTrack(f);
             currentTrack = f;
         }       
-        System.out.println("Opening Track...");
     }
 
     /**
@@ -163,7 +162,7 @@ public class FrameController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {        
         model = new PlaylistTrackModel(list);
-        options.add("all Songs");
+        options.add("All Songs");
         boxPlaylists.setItems(options);
     }
 

@@ -5,15 +5,14 @@
  */
 package bl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.File;
 import java.util.Date;
 
 /**
  *
  * @author Steffie
  */
-public class Track
+public class Track extends File
 {
 
     //Main Attributes
@@ -23,20 +22,13 @@ public class Track
     private Date pub_year;
     private int title_nr;
     private String genre;
+    private String path;
     private int length; //in seconds
 
-    //Help Attributes
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
-    public Track(String title, String artist, String album, String pub_year, int title_nr, String genre, int length) throws ParseException
+    public Track(String pathname)
     {
-        this.title = title;
-        this.artist = artist;
-        this.album = album;
-        this.pub_year = sdf.parse(pub_year);
-        this.title_nr = title_nr;
-        this.genre = genre;
-        this.length = length;
+        super(pathname);
     }
 
     public String getTitle()
