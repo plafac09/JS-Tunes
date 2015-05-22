@@ -9,17 +9,14 @@ package bl;
  *
  * @author Steffie
  */
+
 import javax.sound.sampled.*;
 import java.io.*;
 import java.util.Map;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 import org.jaudiotagger.tag.id3.ID3v1Tag;
-import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.tritonus.share.sampled.TAudioFormat;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
@@ -54,17 +51,75 @@ public class TrackController extends Thread
     
     public void displayTrackInformation() throws Exception
     {
-        System.out.println("in display track info");
-        MP3File f      = (MP3File) AudioFileIO.read(file);
-        Tag tag        =  f.getTag();
-        ID3v1Tag         v1Tag  = (ID3v1Tag)tag;
-        AbstractID3v2Tag v2tag  = f.getID3v2Tag();
-        AbstractID3v2Tag        v24tag = (AbstractID3v2Tag)f.getID3v2TagAsv24();
-        System.out.println("tags and things init");
-        String artist = v1Tag.getFirstArtist();
-        String album = v1Tag.getFirstAlbum();
-        System.out.println("Artist: " +artist);
-        System.out.println("Album: "+album);
+//        System.out.println("in display track info");
+//        File fi = new File(filename);
+//        MP3File f      = (MP3File) AudioFileIO.read(fi);
+//        System.out.println("file read");
+//        Tag tag        =  f.getTag();
+//        System.out.println("first tag funkt");
+//        ID3v1Tag         v1Tag  = (ID3v1Tag)tag;
+//        
+//        String artist = v1Tag.getFirstArtist();
+//        String album = v1Tag.getFirstAlbum();
+//        if(artist.equals(""))
+//        {
+//            artist = "no artist known";
+//        }
+//         if(album.equals(""))
+//        {
+//            album = "no album known";
+//        }
+//        System.out.println("Artist: " +artist);
+//        System.out.println("Album: "+album);
+        
+            File file = new File(filename);
+            AudioFileFormat baseFileFormat = null;
+            AudioFormat baseFormat = null;
+            baseFileFormat = AudioSystem.getAudioFileFormat(file);
+            baseFormat = baseFileFormat.getFormat();
+            // TAudioFileFormat properties
+            if (baseFileFormat instanceof TAudioFileFormat)
+            {
+                String tempVal3 = "";
+                Map<String, Object> properties = (Map<String, Object>)((TAudioFileFormat)baseFileFormat).properties();
+                String key = "author";
+                String val = (String) properties.get(key);
+                
+                String key1 = "title";
+                String val1 = (String) properties.get(key1);
+                
+                String key2 = "album";
+                String val2 = (String) properties.get(key2);
+                
+                String key3 = "duration";
+                long val3 = (long) properties.get(key3);
+                
+                String key4 = "date";
+                String val4 = (String) properties.get(key4);
+                if(val.equals(""))
+                {
+                    val = "no artist known";
+                }
+                if(val1.equals(""))
+                {
+                    val = "no title known";
+                }
+                if(val2.equals(""))
+                {
+                    val = "no album known";
+                }
+                if(val3 == 0)
+                {
+                    tempVal3 = "no duration known";
+                }
+                
+                if(val4.equals(""))
+                {
+                    val4 = "no date known";
+                }
+                
+                System.out.println("key: " + val);
+            }
 
     }   
     /*
