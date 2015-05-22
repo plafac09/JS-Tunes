@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 /**
  *
  * @author Jule
@@ -28,12 +29,15 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 
+    public static Stage mainStage;
+    
     @Override
     public void start(Stage primaryStage) throws IOException
     {
         //Lädt die FXML Datei
         Parent root = FXMLLoader.load(getClass().getResource("Frame.fxml"));
         //Scene = ähnlich wie Frame
+        mainStage = primaryStage;
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
