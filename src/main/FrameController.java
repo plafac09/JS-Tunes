@@ -6,6 +6,7 @@
 package main;
 
 import bl.PlaylistTrackModel;
+import bl.Track;
 import bl.TrackController;
 import java.io.File;
 import java.net.URL;
@@ -78,8 +79,12 @@ public class FrameController implements Initializable {
     }
 
     @FXML
-    public void onPlayStop(ActionEvent evt) {
-        switch (btPlayStop.getText()) {
+    public void onPlayStop(ActionEvent evt) 
+    {
+        
+        switch (btPlayStop.getText()) 
+        {
+     //       Track t;
             case "Play":
                 try 
                 {
@@ -91,14 +96,17 @@ public class FrameController implements Initializable {
                         }
                         tcf = new TrackController();
                         //  System.out.println("tcf initialisiert");
-                        if (currentTrack.getPath() != null) {
+                        if (currentTrack.getPath() != null) 
+                        {
                             tcf.setAudioFilePath(currentTrack.getPath());
+                            //t = new Track(filename);
                         } else //JOptionPane.showMessageDialog(null, "no song available");
                         {
                             System.out.println("no song available");
                         }
                         tcf.start();
-                        tcf.displayTrackInformation();
+                       
+                        tcf.saveTrackInfo(null);
                     }
                     thread = false;
                 } 
@@ -114,6 +122,11 @@ public class FrameController implements Initializable {
                 thread = true;
                 break;
         }
+    }
+    
+    public void displayTrackInfo(Track t)
+    {
+        
     }
 
     @FXML
