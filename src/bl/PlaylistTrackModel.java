@@ -5,8 +5,6 @@
  */
 package bl;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -22,8 +20,10 @@ public class PlaylistTrackModel extends AbstractListModel
     private ObservableList<Track> list = FXCollections.observableArrayList();
     private ListView view;
 
-    public PlaylistTrackModel(ListView view)
+    public PlaylistTrackModel(ListView view) 
     {
+//        list.add(new Track("Paradise", "Colour Haze", "To The Highest Gods We Know"
+//                , "2014", 3, "Psychedelic Rock", 240));
         this.view = view;
         view.setItems(list);
     }

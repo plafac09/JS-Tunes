@@ -7,6 +7,7 @@ package main;
 
 import bl.PlaylistTrackModel;
 import bl.TrackController;
+import java.awt.Image;
 import java.io.File;
 import java.net.URL;
 import java.util.Optional;
@@ -53,6 +54,7 @@ public class FrameController implements Initializable
     {
     }
 
+    
     @FXML
     public void onCreatePlaylist(ActionEvent evt)
     {
