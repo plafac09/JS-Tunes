@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextInputDialog;
@@ -49,6 +50,7 @@ public class FrameController implements Initializable
     private PlaylistTrackModel model;
     private ObservableList<String> options = FXCollections.observableArrayList();
 
+    //Components
     @FXML
     private Slider slider;
     @FXML
@@ -63,6 +65,18 @@ public class FrameController implements Initializable
     private ListView list;
     @FXML
     private ComboBox boxPlaylists;
+    @FXML
+    private Label lbAlbum;
+    @FXML
+    private Label lbGenre;
+    @FXML
+    private Label lbReleaseYear;
+    @FXML
+    private Label lbArtist;
+    @FXML
+    private Label lbCurrentTrack;
+    
+    //Other
     private File currentTrack;
 
     public FrameController()
