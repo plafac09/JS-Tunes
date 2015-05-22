@@ -14,7 +14,7 @@ import java.util.Date;
  *
  * @author Steffie
  */
-public class Track
+public class Track extends File
 {
 
     //Main Attributes
@@ -26,20 +26,14 @@ public class Track
     private String genre;
     private int length; //in seconds
     
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-
-    //Help Attributes
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
-    public Track(String title, String artist, String album, String pub_year, int title_nr, String genre, int length) throws ParseException
+    //Help Attributes
+    
+
+    public Track(String pathname)
     {
-        this.title = title;
-        this.artist = artist;
-        this.album = album;
-        this.pub_year = sdf.parse(pub_year);
-        this.title_nr = title_nr;
-        this.genre = genre;
-        this.length = length;
+        super(pathname);
     }
 
     public String getTitle()

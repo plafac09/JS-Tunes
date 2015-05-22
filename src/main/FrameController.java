@@ -10,6 +10,7 @@ import bl.Track;
 import bl.TrackController;
 import java.io.File;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -66,13 +67,16 @@ public class FrameController implements Initializable {
     
     //Other
     private File currentTrack;
+    private Track t = null;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
     public FrameController() {
 
     }
 
     @FXML
-    public void onCreatePlaylist(ActionEvent evt) {
+    public void onCreatePlaylist(ActionEvent evt) 
+    {
         System.out.println("Creating playlist...");
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Input");
@@ -95,10 +99,9 @@ public class FrameController implements Initializable {
     @FXML
     public void onPlayStop(ActionEvent evt) 
     {
-        
         switch (btPlayStop.getText()) 
         {
-     //       Track t;
+            
             case "Play":
                 try 
                 {
@@ -113,14 +116,15 @@ public class FrameController implements Initializable {
                         if (currentTrack.getPath() != null) 
                         {
                             tcf.setAudioFilePath(currentTrack.getPath());
-                            //t = new Track(filename);
+                            System.out.println("funkt");
+                            t = new Track(currentTrack.getPath());
+                            tcf.start();
+                            tcf.saveTrackInfo(t);
+                            displayTrackInfo(t);
                         } else //JOptionPane.showMessageDialog(null, "no song available");
                         {
                             System.out.println("no song available");
-                        }
-                        tcf.start();
-                       
-                        tcf.saveTrackInfo(null);
+                        }                       
                     }
                     thread = false;
                 } 
@@ -138,9 +142,12 @@ public class FrameController implements Initializable {
         }
     }
     
-    public void displayTrackInfo(Track t)
+    public void displayTrackInfo(Track tr)
     {
-        
+//        lbArtist.setText(tr.getArtist());
+//        lbAlbum.setText(tr.getAlbum());
+//        lbCurrentTrack.setText(tr.getTitle());
+//        lbReleaseYear.setText(sdf.format(tr.getPub_year()));
     }
 
     @FXML

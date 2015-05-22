@@ -46,10 +46,10 @@ public class TrackController extends Thread
     
     public void saveTrackInfo(Track t) throws Exception
     {     
-            File file = new File(filename);
+    //        File file = new File(filename);
             AudioFileFormat baseFileFormat = null;
             AudioFormat baseFormat = null;
-            baseFileFormat = AudioSystem.getAudioFileFormat(file);
+            baseFileFormat = AudioSystem.getAudioFileFormat(t);
             baseFormat = baseFileFormat.getFormat();
             // TAudioFileFormat properties
             if (baseFileFormat instanceof TAudioFileFormat)
@@ -66,7 +66,7 @@ public class TrackController extends Thread
                 String album = (String) properties.get(key2);
                 
                 String key3 = "duration";
-                String dur = (String) properties.get(key3);
+                String dur = properties.get(key3) + "";
                 int duration = Integer.parseInt(dur);
                 String key4 = "date";
                 String date = (String) properties.get(key4);
@@ -87,12 +87,11 @@ public class TrackController extends Thread
                 {
                     date = "no date known";
                 }
+                System.out.println(artist+"\n"+title+"\n"+album+"\n"+duration+"\n"+date);
                 t.setArtist(artist);
                 t.setTitle(title);
                 t.setAlbum(album);
                 t.setLength(duration);
-                
-                
             }
 
     }   
