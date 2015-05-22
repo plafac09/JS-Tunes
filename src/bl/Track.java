@@ -6,6 +6,8 @@
 package bl;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -24,6 +26,8 @@ public class Track extends File
     private String genre;
     private String path;
     private int length; //in seconds
+    
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
 
     public Track(String pathname)
@@ -66,9 +70,9 @@ public class Track extends File
         return pub_year;
     }
 
-    public void setPub_year(Date pub_year)
+    public void setPub_year(String year) throws ParseException
     {
-        this.pub_year = pub_year;
+        this.pub_year = sdf.parse(year);
     }
 
     public int getTitle_nr()

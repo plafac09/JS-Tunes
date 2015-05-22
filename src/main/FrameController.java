@@ -100,7 +100,6 @@ public class FrameController implements Initializable
         {
             options.add(result.get());
             boxPlaylists.setItems(options);
-
         }
     }
 
