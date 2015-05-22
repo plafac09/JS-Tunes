@@ -5,6 +5,7 @@
  */
 package bl;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,8 @@ public class Track
     private int title_nr;
     private String genre;
     private int length; //in seconds
+    
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     //Help Attributes
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
@@ -74,9 +77,9 @@ public class Track
         return pub_year;
     }
 
-    public void setPub_year(Date pub_year)
+    public void setPub_year(String year) throws ParseException
     {
-        this.pub_year = pub_year;
+        this.pub_year = sdf.parse(year);
     }
 
     public int getTitle_nr()
