@@ -151,18 +151,19 @@ public class FrameController implements Initializable {
     }
 
     @FXML
-    public void onOpenTrack(ActionEvent evt) {
+    public void onOpenTrack(ActionEvent evt) 
+    {
         //File Chooser
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("MP3 Files", "*.mp3"));
         File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
-        if (selectedFile != null) {
+        if (selectedFile != null) 
+        {
             File f = selectedFile;
             //  Track t = new Track()
             model.addTrack(f);
-            currentTrack = f;
         }
         System.out.println("Opening Track...");
     }
