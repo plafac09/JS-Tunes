@@ -144,10 +144,10 @@ public class FrameController implements Initializable {
     
     public void displayTrackInfo(Track tr)
     {
-//        lbArtist.setText(tr.getArtist());
-//        lbAlbum.setText(tr.getAlbum());
-//        lbCurrentTrack.setText(tr.getTitle());
-//        lbReleaseYear.setText(sdf.format(tr.getPub_year()));
+        lbArtist.setText("Artist: "+tr.getArtist());
+        lbAlbum.setText("Album: "+tr.getAlbum());
+        lbCurrentTrack.setText(tr.getTitle());
+        lbReleaseYear.setText("Release Year: "+sdf.format(tr.getPub_year()));
     }
 
     @FXML
