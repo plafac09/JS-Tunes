@@ -27,6 +27,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -37,7 +38,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * https://www.tutorials.de/threads/java-songlaenge-auslesen.337536/
  *
  */
-public class FrameController implements Initializable {
+public class FrameController implements Initializable
+{
 
     private PlaylistTrackModel model;
     private ObservableList<String> options = FXCollections.observableArrayList();
@@ -64,13 +66,18 @@ public class FrameController implements Initializable {
     private Label lbArtist;
     @FXML
     private Label lbCurrentTrack;
-    
+    @FXML
+    private Label lbCurrentTime;
+    @FXML
+    private Label lbTime;
+
     //Other
     private File currentTrack;
     private Track t = null;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
-    public FrameController() {
+    public FrameController()
+    {
 
     }
 
@@ -159,7 +166,7 @@ public class FrameController implements Initializable {
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("MP3 Files", "*.mp3"));
         File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
-        if (selectedFile != null) 
+        if (selectedFile != null)
         {
             File f = selectedFile;
             //  Track t = new Track()
