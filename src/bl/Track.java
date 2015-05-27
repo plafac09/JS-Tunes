@@ -27,7 +27,7 @@ public class Track extends File
     private String path;
     private int length; //in seconds
     
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
 
     public Track(String pathname)
