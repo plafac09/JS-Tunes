@@ -92,7 +92,8 @@ public class FrameController implements Initializable
 
         Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (result.isPresent()) 
+        {
             options.add(result.get());
             boxPlaylists.setItems(options);
         }
