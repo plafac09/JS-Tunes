@@ -4,22 +4,16 @@
  * and open the template in the editor.
  */
 package main;
-import main.Main;
+
 import bl.PlaylistTrackModel;
 import bl.TrackController;
-import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,22 +25,20 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * FXML Controller class
  *
  * @author Jule
- * 
+ *
  * Musik Länge anzeigen:
  * https://www.tutorials.de/threads/java-songlaenge-auslesen.337536/
- * 
+ *
  */
 public class FrameController implements Initializable
 {
+
     private PlaylistTrackModel model;
     private ObservableList<String> options = FXCollections.observableArrayList();
 
@@ -75,16 +67,19 @@ public class FrameController implements Initializable
     private Label lbArtist;
     @FXML
     private Label lbCurrentTrack;
-    
+    @FXML
+    private Label lbCurrentTime;
+    @FXML
+    private Label lbTime;
+
     //Other
     private File currentTrack;
 
     public FrameController()
     {
-        
+
     }
 
-    
     @FXML
     public void onCreatePlaylist(ActionEvent evt)
     {
@@ -123,21 +118,23 @@ public class FrameController implements Initializable
                         break;
                     }
                     tcf = new TrackController();
-                  //  System.out.println("tcf initialisiert");
-                    if(currentTrack.getAbsolutePath() != null)
+                    //  System.out.println("tcf initialisiert");
+                    if (currentTrack.getAbsolutePath() != null)
                     {
                         tcf.setAudioFilePath(currentTrack.getAbsolutePath());
-                    }
-                    else
+                    } else
+                    {
                         JOptionPane.showMessageDialog(null, "no song available");
+                    }
                     tcf.start();
-            try 
-            {
-                tcf.displayTrackInformation();
-            } catch (Exception ex) {
-                System.out.println("Exception in FrameController : onPlayStop: "+ex.toString());
-            } 
-                 //   System.out.println("tcf started in gui");
+                    try
+                    {
+                        tcf.displayTrackInformation();
+                    } catch (Exception ex)
+                    {
+                        System.out.println("Exception in FrameController : onPlayStop: " + ex.toString());
+                    }
+                    //   System.out.println("tcf started in gui");
                     thread = false;
                 }
                 break;
@@ -159,13 +156,13 @@ public class FrameController implements Initializable
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("MP3 Files", "*.mp3"));
         File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
-        if (selectedFile != null) 
+        if (selectedFile != null)
         {
             File f = selectedFile;
-          //  Track t = new Track()
+            //  Track t = new Track()
             model.addTrack(f);
             currentTrack = f;
-        }       
+        }
     }
 
     /**
@@ -173,7 +170,7 @@ public class FrameController implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {        
+    {
         model = new PlaylistTrackModel(list);
         options.add("All Songs");
         boxPlaylists.setItems(options);
