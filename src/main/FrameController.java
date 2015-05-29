@@ -13,6 +13,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +29,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -78,11 +79,10 @@ public class FrameController implements Initializable
 
     public FrameController()
     {
-
     }
 
     @FXML
-    public void onCreatePlaylist(ActionEvent evt) 
+    public void onCreatePlaylist(ActionEvent evt)
     {
         System.out.println("Creating playlist...");
         TextInputDialog dialog = new TextInputDialog();
@@ -92,76 +92,76 @@ public class FrameController implements Initializable
 
         Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (result.isPresent())
+        {
             options.add(result.get());
             boxPlaylists.setItems(options);
         }
     }
 
     @FXML
-    public void onChangeVolume(MouseEvent evt) {
+    public void onChangeVolume(MouseEvent evt)
+    {
 
     }
 
     @FXML
-    public void onPlayStop(ActionEvent evt) 
+    public void onPlayStop(ActionEvent evt)
     {
         int selectionIndex = list.getSelectionModel().getSelectedIndex();
         currentTrack = (File) model.getElementAt(selectionIndex);
-        
-        switch (btPlayStop.getText()) 
+        switch (btPlayStop.getText())
         {
-            
             case "Play":
-                try 
+                try
                 {
                     btPlayStop.setText("Pause");
-                    if (thread) 
+                    if (thread)
                     {
-                        if (tcf != null && tcf.isAlive()) {
+                        if (tcf != null && tcf.isAlive())
+                        {
                             break;
                         }
                         tcf = new TrackController();
-                        //  System.out.println("tcf initialisiert");
-                        if (currentTrack.getPath() != null) 
+                        // System.out.println("tcf initialisiert");
+                        if (currentTrack.getPath() != null)
                         {
                             tcf.setAudioFilePath(currentTrack.getPath());
                             System.out.println("funkt");
                             t = new Track(currentTrack.getPath());
                             tcf.start();
-                            tcf.saveTrackInfo(t);
+                            tcf.readTrackInfo(t);
                             displayTrackInfo(t);
                         } else //JOptionPane.showMessageDialog(null, "no song available");
                         {
                             System.out.println("no song available");
-                        }                       
+                        }
                     }
                     thread = false;
-                } 
-                catch (Exception ex) 
+                } catch (Exception ex)
                 {
                     System.out.println("Exception in FrameController : onPlayStop: " + ex.toString());
                 }
-                 //   System.out.println("tcf started in gui");
+                //   System.out.println("tcf started in gui");
                 break;
             case "Pause":
                 btPlayStop.setText("Play");
-                tcf.setInter(true);
+                tcf.setInterrupted(true);
                 thread = true;
                 break;
         }
     }
-    
+
     public void displayTrackInfo(Track tr)
     {
-        lbArtist.setText("Artist: "+tr.getArtist());
-        lbAlbum.setText("Album: "+tr.getAlbum());
+        lbArtist.setText("Artist: " + tr.getArtist());
+        lbAlbum.setText("Album: " + tr.getAlbum());
         lbCurrentTrack.setText(tr.getTitle());
-        lbReleaseYear.setText("Release Year: "+sdf.format(tr.getPub_year()));
+        lbReleaseYear.setText("Release Year: " + sdf.format(tr.getPub_year()));
     }
 
     @FXML
-    public void onOpenTrack(ActionEvent evt) 
+    public void onOpenTrack(ActionEvent evt)
     {
         //File Chooser
         FileChooser fileChooser = new FileChooser();
@@ -169,20 +169,24 @@ public class FrameController implements Initializable
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("MP3 Files", "*.mp3"));
         File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
-        if (selectedFile != null)
-        {
-            File f = selectedFile;
-            //  Track t = new Track()
-            model.addTrack(f);
-        }
+        Track t = new Track(selectedFile.getPath());
+
+        File f = selectedFile;
+        model.addTrack(t);
         System.out.println("Opening Track...");
     }
 
+    @FXML
+    public void onSelectTrack()
+    {
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         model = new PlaylistTrackModel(list);
         options.add("all Songs");
         boxPlaylists.setItems(options);
