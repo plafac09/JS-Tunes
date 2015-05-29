@@ -107,6 +107,9 @@ public class FrameController implements Initializable
     @FXML
     public void onPlayStop(ActionEvent evt) 
     {
+        int selectionIndex = list.getSelectionModel().getSelectedIndex();
+        currentTrack = (File) model.getElementAt(selectionIndex);
+        
         switch (btPlayStop.getText()) 
         {
             
