@@ -13,6 +13,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,7 +85,7 @@ public class FrameController implements Initializable
     
 
     @FXML
-    public void onCreatePlaylist(ActionEvent evt) 
+    public void onCreatePlaylist(ActionEvent evt)
     {
      //   System.out.println("Creating playlist...");
         TextInputDialog dialog = new TextInputDialog();
@@ -110,16 +112,15 @@ public class FrameController implements Initializable
     }
 
     @FXML
-    public void onPlayStop(ActionEvent evt) 
+    public void onPlayStop(ActionEvent evt)
     {
         int selectionIndex = list.getSelectionModel().getSelectedIndex();
         currentTrack = (Track) model.getElementAt(selectionIndex);
         
         switch (btPlayStop.getText()) 
         {
-            
             case "Play":
-                try 
+                try
                 {
                     btPlayStop.setText("Pause");
                     if (isTrackRunning) 
@@ -132,12 +133,12 @@ public class FrameController implements Initializable
                         if (currentTrack != null) 
                         {
                             tcf.start();
-                            tcf.saveTrackInfo(t);
+                            tcf.readTrackInfo(t);
                             displayTrackInfo(t);
                         } else //JOptionPane.showMessageDialog(null, "no song available");
                         {
                             System.out.println("no song available");
-                        }                       
+                        }
                     }
                     isTrackRunning = false;
                 } 
@@ -145,7 +146,7 @@ public class FrameController implements Initializable
                 {
                     System.out.println("Exception in FrameController : onPlayStop: " + ex.toString());
                 }
-                 //   System.out.println("tcf started in gui");
+                //   System.out.println("tcf started in gui");
                 break;
             case "Pause":
                 btPlayStop.setText("Play");
@@ -176,7 +177,7 @@ public class FrameController implements Initializable
     
 
     @FXML
-    public void onOpenTrack(ActionEvent evt) 
+    public void onOpenTrack(ActionEvent evt)
     {
         //File Chooser
         FileChooser fileChooser = new FileChooser();
@@ -192,6 +193,11 @@ public class FrameController implements Initializable
       //  System.out.println("Opening Track...");
     }
 
+    @FXML
+    public void onSelectTrack()
+    {
+    }
+    
     /**
      * Initializes the controller class.
      */

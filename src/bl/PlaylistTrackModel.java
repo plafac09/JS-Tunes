@@ -25,7 +25,7 @@ public class PlaylistTrackModel extends AbstractListModel
     public PlaylistTrackModel(ListView view)
     {
         this.view = view;
-        view.setItems(list);
+        //view.setItems(list);
     }
 
     public void addTrack(Track t)
