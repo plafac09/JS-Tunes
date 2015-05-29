@@ -24,16 +24,11 @@ public class TrackController extends Thread
     private String filename = "";
     private AudioInputStream in = null;
     private AudioFormat baseFormat = null;
-    private File file = null;
+    private Track file = null;
 
      public void setInter(boolean inter) 
     {
         this.inter = inter;
-    }
-    
-    public void setAudioFilePath(String filename) 
-    {
-        this.filename = filename;
     }
     
     @Override
@@ -44,9 +39,14 @@ public class TrackController extends Thread
       //  System.out.println("stop");
     }
     
+    public void setTrack(Track t)
+    {
+        file = t;
+    }
+    
     public void saveTrackInfo(Track t) throws Exception
     {     
-    //        File file = new File(filename);
+    //      File file = new File(filename);
             AudioFileFormat baseFileFormat = null;
             AudioFormat baseFormat = null;
             baseFileFormat = AudioSystem.getAudioFileFormat(t);
@@ -68,8 +68,10 @@ public class TrackController extends Thread
                 String key3 = "duration";
                 String dur = properties.get(key3) + "";
                 int duration = Integer.parseInt(dur);
+                
                 String key4 = "date";
                 String date = (String) properties.get(key4);
+                
                 if(artist.equals(""))
                 {
                     artist = "no artist known";
@@ -92,6 +94,7 @@ public class TrackController extends Thread
                 t.setTitle(title);
                 t.setAlbum(album);
                 t.setLength(duration);
+                t.setPub_year(date);
             }
 
     }   
@@ -115,7 +118,6 @@ public class TrackController extends Thread
     {
         try 
         {
-            file = new File(filename);
             AudioInputStream in = AudioSystem.getAudioInputStream(file);
             AudioFormat baseFormat = in.getFormat();
             AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,

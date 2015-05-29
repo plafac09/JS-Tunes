@@ -27,7 +27,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -42,7 +41,7 @@ public class FrameController implements Initializable
 {
 
     private PlaylistTrackModel model;
-    private ObservableList<String> options = FXCollections.observableArrayList();
+    private ObservableList<PlaylistTrackModel> options = FXCollections.observableArrayList();
 
     //Components
     @FXML
@@ -50,7 +49,7 @@ public class FrameController implements Initializable
     @FXML
     private Button btPlayStop;
     private TrackController tcf = null;
-    private boolean thread = true;
+    private boolean isTrackRunning = true;
     private String filename = System.getProperty("user.dir") + File.separator + "res" + File.separator + "music" + File.separator + "Lunar.mp3";
     @FXML
     private ListView list;
@@ -78,29 +77,35 @@ public class FrameController implements Initializable
 
     public FrameController()
     {
-
+        tcf = new TrackController();
     }
+    
+    
 
     @FXML
     public void onCreatePlaylist(ActionEvent evt) 
     {
-        System.out.println("Creating playlist...");
+     //   System.out.println("Creating playlist...");
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Input");
         dialog.setHeaderText("Create a new Album");
         dialog.setContentText("Enter a name: ");
-
+        
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) 
         {
-            options.add(result.get());
-            boxPlaylists.setItems(options);
+            String name = result.get();
+            PlaylistTrackModel ptm = new PlaylistTrackModel(list);
+            ptm.setName(name);
+            options.add(ptm);
+            boxPlaylists.setItems(options);         
         }
     }
 
     @FXML
-    public void onChangeVolume(MouseEvent evt) {
+    public void onChangeVolume(MouseEvent evt) 
+    {
 
     }
 
@@ -108,7 +113,7 @@ public class FrameController implements Initializable
     public void onPlayStop(ActionEvent evt) 
     {
         int selectionIndex = list.getSelectionModel().getSelectedIndex();
-        currentTrack = (File) model.getElementAt(selectionIndex);
+        currentTrack = (Track) model.getElementAt(selectionIndex);
         
         switch (btPlayStop.getText()) 
         {
@@ -117,18 +122,15 @@ public class FrameController implements Initializable
                 try 
                 {
                     btPlayStop.setText("Pause");
-                    if (thread) 
+                    if (isTrackRunning) 
                     {
-                        if (tcf != null && tcf.isAlive()) {
+                        if (tcf != null && tcf.isAlive()) 
+                        {
                             break;
                         }
-                        tcf = new TrackController();
                         //  System.out.println("tcf initialisiert");
-                        if (currentTrack.getPath() != null) 
+                        if (currentTrack != null) 
                         {
-                            tcf.setAudioFilePath(currentTrack.getPath());
-                            System.out.println("funkt");
-                            t = new Track(currentTrack.getPath());
                             tcf.start();
                             tcf.saveTrackInfo(t);
                             displayTrackInfo(t);
@@ -137,7 +139,7 @@ public class FrameController implements Initializable
                             System.out.println("no song available");
                         }                       
                     }
-                    thread = false;
+                    isTrackRunning = false;
                 } 
                 catch (Exception ex) 
                 {
@@ -148,18 +150,30 @@ public class FrameController implements Initializable
             case "Pause":
                 btPlayStop.setText("Play");
                 tcf.setInter(true);
-                thread = true;
+                isTrackRunning = true;
                 break;
         }
     }
     
+    
+    
     public void displayTrackInfo(Track tr)
     {
-        lbArtist.setText("Artist: "+tr.getArtist());
-        lbAlbum.setText("Album: "+tr.getAlbum());
-        lbCurrentTrack.setText(tr.getTitle());
-        lbReleaseYear.setText("Release Year: "+sdf.format(tr.getPub_year()));
+        try 
+        {
+            tcf.saveTrackInfo(tr);
+            lbArtist.setText("Artist: "+tr.getArtist());
+            lbAlbum.setText("Album: "+tr.getAlbum());
+            lbCurrentTrack.setText(tr.getTitle());
+            lbReleaseYear.setText("Release Year: "+sdf.format(tr.getPub_year()));
+        } 
+        catch (Exception ex) 
+        {
+            System.out.println("Exception in FrameController: displayTrackInfo: "+ex.toString());
+        }
     }
+    
+    
 
     @FXML
     public void onOpenTrack(ActionEvent evt) 
@@ -172,20 +186,21 @@ public class FrameController implements Initializable
         File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
         if (selectedFile != null)
         {
-            File f = selectedFile;
-            //  Track t = new Track()
-            model.addTrack(f);
+              Track t = new Track(selectedFile.getPath());
+              model.addTrack(t);
         }
-        System.out.println("Opening Track...");
+      //  System.out.println("Opening Track...");
     }
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         model = new PlaylistTrackModel(list);
-        options.add("all Songs");
+        model.setName("all Songs");
+        options.add(model);
         boxPlaylists.setItems(options);
     }
 

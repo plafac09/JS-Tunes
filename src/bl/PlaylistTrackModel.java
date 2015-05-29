@@ -18,8 +18,9 @@ import javax.swing.AbstractListModel;
 public class PlaylistTrackModel extends AbstractListModel
 {
 
-    private ObservableList<File> list = FXCollections.observableArrayList();
+    private ObservableList<Track> list = FXCollections.observableArrayList();
     private ListView view;
+    private String name;
 
     public PlaylistTrackModel(ListView view)
     {
@@ -27,7 +28,7 @@ public class PlaylistTrackModel extends AbstractListModel
         view.setItems(list);
     }
 
-    public void addTrack(File t)
+    public void addTrack(Track t)
     {
     //    String newName = t.getAbsolutePath().substring(t.getAbsolutePath().lastIndexOf("\\"), t.getAbsolutePath().length());
     //    t.renameTo();
@@ -35,7 +36,7 @@ public class PlaylistTrackModel extends AbstractListModel
         view.setItems(list);
     }
 
-    public void removeTrackByObject(File t)
+    public void removeTrackByObject(Track t)
     {
         list.remove(t);
         view.setItems(list);
@@ -58,5 +59,18 @@ public class PlaylistTrackModel extends AbstractListModel
     {
         return list.get(index);
     }
+    
+    public void setName(String playlistName)
+    {
+        this.name = playlistName;
+    }
+
+    @Override
+    public String toString() 
+    {
+        return name;
+    }
+    
+    
 
 }
