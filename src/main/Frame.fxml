@@ -17,7 +17,7 @@
                   <ComboBox fx:id="boxPlaylists" prefHeight="25.0" prefWidth="208.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <ListView fx:id="list" onMouseClicked="#onSelectTrack" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </left>
