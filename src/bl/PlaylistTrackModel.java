@@ -28,6 +28,10 @@ public class PlaylistTrackModel extends AbstractListModel
         //view.setItems(list);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addTrack(Track t)
     {
     //    String newName = t.getAbsolutePath().substring(t.getAbsolutePath().lastIndexOf("\\"), t.getAbsolutePath().length());

@@ -13,8 +13,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -133,7 +131,7 @@ public class FrameController implements Initializable
                         if (currentTrack != null) 
                         {
                             tcf.start();
-                            tcf.readTrackInfo(t);
+                            tcf.saveTrackInfo(t);
                             displayTrackInfo(t);
                         } else //JOptionPane.showMessageDialog(null, "no song available");
                         {

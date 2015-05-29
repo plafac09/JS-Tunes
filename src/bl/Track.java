@@ -119,7 +119,7 @@ public class Track extends File
     @Override
     public String toString()
     {
-        return String.format("%2d - %s | %d:%d", title_nr, title, length / 60, length % 60);
+        return String.format("%s | %d:%d", this.getTitle(), this.getLength() / 60, this.getLength() % 60);
     }
     
 
